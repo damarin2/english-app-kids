@@ -1,0 +1,139 @@
+/* --- 1. ベース設定 (変更なし) --- */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ', sans-serif;
+  overflow: hidden;
+  background-color: #1a1a1a;
+  color: white;
+}
+
+/* --- 2. 共通画面レイアウト --- */
+.screen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.home { background: linear-gradient(135deg, #2c3e50, #000000); }
+.theme-select { background: linear-gradient(135deg, #1e3c72, #2a5298); }
+
+.title {
+  font-size: 3.5rem;
+  margin-bottom: 50px;
+  color: #ffcc00;
+  text-shadow: 0 0 20px rgba(255, 204, 0, 0.6);
+}
+
+/* --- 3. ボタンデザイン --- */
+.start-btn, .theme-btn {
+  padding: 20px 40px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin: 10px;
+}
+
+.start-btn {
+  background: linear-gradient(to bottom, #ffeb3b, #fbc02d);
+  box-shadow: 0 8px 0 #947a00;
+  color: #333;
+}
+
+.theme-btn {
+  background: white;
+  color: #333;
+  box-shadow: 0 8px 0 #999;
+  min-width: 200px;
+}
+
+/* --- 4. ゲーム画面（ここが重要！） --- */
+.game-screen {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+/* デフォルトは横並び(PC) */
+.split-screen {
+  display: flex;
+  flex-direction: row; 
+  width: 100%;
+  height: 100%;
+}
+
+.card-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  border: 10px solid transparent;
+  padding: 10px;
+}
+
+.left { background: linear-gradient(to bottom, #4b0082, #000); }
+.right { background: linear-gradient(to bottom, #001f3f, #000); }
+
+/* 文字と絵文字の基本サイズ */
+.en-word { font-size: 4rem; margin: 0; color: #fff; text-align: center; }
+.visual-emoji { font-size: 12rem; margin: 10px 0; }
+.jp-word { font-size: 2rem; color: #ccc; margin: 0; }
+
+/* ==========================================
+   5. スマホ・タブレット向けレスポンシブ設定
+   ========================================== */
+@media (max-width: 768px) {
+  /* 縦並びに変更 */
+  .split-screen {
+    flex-direction: column;
+  }
+
+  /* タイトルを少し小さく */
+  .title {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+  }
+
+  /* カードの中身をスマホサイズに最適化 */
+  .en-word { font-size: 2.5rem; }
+  .visual-emoji { font-size: 7rem; margin: 5px 0; }
+  .jp-word { font-size: 1.5rem; }
+
+  /* OKバッジの位置を調整 */
+  .ok-badge {
+    top: 10px;
+    font-size: 1.5rem;
+    padding: 5px 20px;
+  }
+
+  /* 合体画面のカードをスマホの幅に合わせる */
+  .fusion-card {
+    padding: 30px;
+    width: 85%;
+  }
+  .fusion-en-name { font-size: 2.8rem; }
+  .fusion-visual-mix { font-size: 5rem; }
+  .fusion-jp-name { font-size: 2rem; }
+}
+
+/* --- 以下、アニメーションとコントロール系は変更なし --- */
+.card-section.selected { border-color: #00ff00; transform: scale(0.95); }
+.ok-badge { position: absolute; top: 40px; background: #00ff00; color: black; padding: 10px 30px; font-size: 2rem; font-weight: bold; border-radius: 50px; animation: pop 0.3s ease-out; }
+@keyframes pop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+.fusion-result-screen { width: 100vw; height: 100vh; background: radial-gradient(circle, #444 0%, #000 100%); display: flex; justify-content: center; align-items: center; }
+.fusion-card { background: rgba(255, 255, 255, 0.95); border-radius: 50px; text-align: center; color: #333; box-shadow: 0 0 100px rgba(255, 255, 255, 0.2); animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+@keyframes bounceIn { 0% { transform: scale(0) rotate(-10deg); } 100% { transform: scale(1) rotate(0deg); } }
+.next-btn { padding: 20px 50px; font-size: 2rem; background: linear-gradient(45deg, #ff00ff, #00ffff); color: white; border: none; border-radius: 100px; cursor: pointer; }
